@@ -45,7 +45,7 @@ module OmniAuth
       #   we don't want the querystring appended to the callback_url
       # See https://github.com/omniauth/omniauth-oauth2/issues/81
       def callback_url
-        full_host + script_name + callback_path
+        options[:redirect_uri] || (full_host + script_name + callback_path)
       end
     end
   end
