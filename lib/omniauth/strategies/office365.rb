@@ -9,7 +9,7 @@ module OmniAuth
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
-      option :client_options, :site => 'https://outlook.office.com/',
+      option :client_options, :site => 'https://graph.microsoft.com/',
                               :authorize_url => 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
                               :token_url => 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
 
@@ -23,8 +23,8 @@ module OmniAuth
       # https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema#schema-10-and-later
       info do
         {
-          :name => raw_info['DisplayName'],
-          :email => raw_info['EmailAddress'],
+          :name => raw_info['displayName'],
+          :email => raw_info['userPrincipalName'],
           :nickname => raw_info['Alias']
         }
       end
@@ -36,7 +36,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('api/v2.0/me').parsed
+        @raw_info ||= access_token.get('v1.0/me').parsed
       end
 
       private
